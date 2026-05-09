@@ -5,7 +5,8 @@ import streamlit as st
 # =====================================
 st.set_page_config(
     page_title="Perhitungan Titrimetri",
-    page_icon="🧪"
+    page_icon="🧪",
+    layout="centered"
 )
 
 # =====================================
@@ -15,9 +16,63 @@ st.title("🧪 Perhitungan Titrimetri")
 st.write("Standarisasi dan Penetapan Kadar")
 
 # =====================================
+# GAMBAR HEADER
+# =====================================
+st.image(
+    "https://upload.wikimedia.org/wikipedia/commons/9/92/Titration_setup.svg",
+    caption="Praktik Titrasi"
+)
+
+# =====================================
+# GAMBAR ALAT LAB
+# =====================================
+st.header("Peralatan Titrasi")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/2933/2933821.png",
+        caption="Buret",
+        width=120
+    )
+
+with col2:
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/2965/2965567.png",
+        caption="Erlenmeyer",
+        width=120
+    )
+
+with col3:
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/2784/2784487.png",
+        caption="Pipet Volumetrik",
+        width=120
+    )
+
+col4, col5 = st.columns(2)
+
+with col4:
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/619/619103.png",
+        caption="Labu Takar",
+        width=120
+    )
+
+with col5:
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/706/706797.png",
+        caption="Bulb",
+        width=120
+    )
+
+# =====================================
 # SIDEBAR
 # =====================================
 with st.sidebar:
+
+    st.header("Menu")
 
     jenis = st.selectbox(
         "Pilih Jenis Perhitungan",
@@ -86,14 +141,25 @@ else:
 # =====================================
 st.header("Input Data")
 
-# Duplo hanya volume
-V1 = st.number_input("Volume Titran 1 (mL)", min_value=0.0)
-V2 = st.number_input("Volume Titran 2 (mL)", min_value=0.0)
+V1 = st.number_input(
+    "Volume Titran 1 (mL)",
+    min_value=0.0
+)
 
-# Data lainnya sama
-N = st.number_input("Normalitas/Molaritas", min_value=0.0)
+V2 = st.number_input(
+    "Volume Titran 2 (mL)",
+    min_value=0.0
+)
 
-BE = st.number_input("BE/BM", min_value=0.0)
+N = st.number_input(
+    "Normalitas/Molaritas",
+    min_value=0.0
+)
+
+BE = st.number_input(
+    "BE/BM",
+    min_value=0.0
+)
 
 FP = st.number_input(
     "Faktor Pengali",
@@ -172,7 +238,7 @@ if st.button("Hitung"):
         # VALIDASI RPD
         # =====================================
         if rpd <= 10:
-            st.success("Presisi Memenuhi Syarat")
+            st.success("✅ Presisi Memenuhi Syarat")
 
         else:
-            st.error("Presisi Tidak Memenuhi")
+            st.error("❌ Presisi Tidak Memenuhi")
