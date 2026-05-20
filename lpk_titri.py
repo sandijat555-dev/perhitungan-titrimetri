@@ -1,186 +1,114 @@
 import streamlit as st
 
-# =====================================
-# KONFIGURASI HALAMAN
-# =====================================
-st.set_page_config(
-    page_title="Perhitungan Titrimetri",
-    page_icon="🧪",
-    layout="wide"
-)
+st.set_page_config(page_title="Web Titrimetri", layout="wide")
 
-# =====================================
-# HEADER
-# =====================================
-st.title("🧪 Web Perhitungan Titrimetri")
-st.subheader("Standarisasi & Penetapan Kadar")
+# ---------- STYLE ----------
+st.markdown("""
+<style>
+.main {background-color:#f7fcfc;}
+.hero {
+    background: linear-gradient(135deg,#0ea5a4,#38bdf8);
+    padding: 35px;
+    border-radius: 18px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.result-box{
+    padding:15px;
+    border-radius:12px;
+    background:#ecfeff;
+    border:1px solid #a5f3fc;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# =====================================
-# GAMBAR TITRASI
-# =====================================
-st.image(
-    "https://upload.wikimedia.org/wikipedia/commons/9/92/Titration_setup.svg",
-    caption="Praktik Titrasi"
-)
+st.markdown("""
+<div class="hero">
+<h1>Web Perhitungan Kadar dan Standarisasi Titrimetri</h1>
+<p>Responsive • Duplo • RPD otomatis • Metode titrimetri</p>
+</div>
+""", unsafe_allow_html=True)
 
-# =====================================
-# ICON ALAT LAB
-# =====================================
-st.header("Peralatan Titrasi")
+methods = [
+    "Alkalimetri", "Asidimetri", "Permanganometri",
+    "Iodometri", "Argentometri", "Kompleksometri"
+]
 
-col1, col2, col3, col4, col5 = st.columns(5)
-
-with col1:
-    st.markdown("### ⚗️")
-    st.write("Buret")
-
-with col2:
-    st.markdown("### 🧪")
-    st.write("Erlenmeyer")
-
-with col3:
-    st.markdown("### 🧫")
-    st.write("Pipet Volumetrik")
-
-with col4:
-    st.markdown("### 🧴")
-    st.write("Bulb")
-
-with col5:
-    st.markdown("### ⚱️")
-    st.write("Labu Takar")
-
-# =====================================
-# SIDEBAR
-# =====================================
 with st.sidebar:
-    st.header("Menu")
+    st.header("Pengaturan")
+    metode = st.selectbox("Pilih Metode", methods)
+    st.info("RPD Lulus jika ≤ 10%")
 
-    jenis = st.selectbox(
-        "Pilih Jenis Perhitungan",
-        ["Standarisasi", "Penetapan Kadar"]
-    )
+def rpd(h1, h2):
+    avg = (h1 + h2) / 2
+    return 0 if avg == 0 else abs(h1 - h2) / avg * 100
 
-    metode = st.selectbox(
-        "Pilih Metode",
-        [
-            "Alkalimetri",
-            "Asidimetri",
-            "Permanganometri",
-            "Iodometri",
-            "Argentometri",
-            "Kompleksometri"
-        ]
-    )
+tab1, tab2 = st.tabs(["Standarisasi", "Penetapan Kadar"])
 
-# =====================================
-# INFORMASI METODE
-# =====================================
-st.header("Informasi Metode")
+# ---------- TAB 1 ----------
+with tab1:
+    st.subheader("Standarisasi")
+    c1, c2 = st.columns(2)
 
-if jenis == "Standarisasi":
-    if metode == "Alkalimetri":
-        st.info("Baku Primer : Asam Oksalat")
-    elif metode == "Asidimetri":
-        st.info("Baku Primer : Boraks")
-    elif metode == "Permanganometri":
-        st.info("Baku Primer : Asam Oksalat")
-    elif metode == "Iodometri":
-        st.info("Baku Primer : K2Cr2O7")
-    elif metode == "Argentometri":
-        st.info("Baku Primer : NaCl")
-    elif metode == "Kompleksometri":
-        st.info("Baku Primer : CaCO3")
+    with c1:
+        v1 = st.number_input("V1 (mL)", min_value=0.0)
+        v2 = st.number_input("V2 (mL)", min_value=0.0)
+        mg = st.number_input("mg baku primer", min_value=0.0)
 
-else:
-    if metode == "Alkalimetri":
-        st.info("Penetapan kadar CH3COOH dalam cuka")
-    elif metode == "Asidimetri":
-        st.info("Penetapan kadar Na2CO3 & NaOH (Warder)")
-    elif metode == "Permanganometri":
-        st.info("Penetapan kadar Fe")
-    elif metode == "Iodometri":
-        st.info("Penetapan kadar Cl")
-    elif metode == "Argentometri":
-        st.info("Penetapan kadar Cl")
-    elif metode == "Kompleksometri":
-        st.info("Kesadahan air (CaCO3 ppm)")
+    with c2:
+        be = st.number_input("BE / BM", min_value=0.0001, value=1.0)
+        fp = st.number_input("Faktor Pengali (FP)", min_value=0.0001, value=1.0)
 
-# =====================================
-# FORM INPUT
-# =====================================
-st.header("Input Data")
+    if st.button("Hitung Standarisasi"):
+        n1 = mg / (v1 * be * fp) if v1 else 0
+        n2 = mg / (v2 * be * fp) if v2 else 0
+        avg = (n1 + n2) / 2
+        hasil_rpd = rpd(n1, n2)
 
-# Input sama
-V1 = st.number_input("Volume Titran 1 (mL)", min_value=0.0)
-V2 = st.number_input("Volume Titran 2 (mL)", min_value=0.0)
-BE = st.number_input("BE / BM", min_value=0.0)
-FP = st.number_input("Faktor Pengali", min_value=0.0, value=1.0)
+        st.markdown('<div class="result-box">', unsafe_allow_html=True)
+        st.write(f"**N1:** {n1:.4f}")
+        st.write(f"**N2:** {n2:.4f}")
+        st.write(f"**Rata-rata N/M:** {avg:.4f}")
+        st.write(f"**RPD:** {hasil_rpd:.2f}%")
+        st.success("LULUS") if hasil_rpd <= 10 else st.error("TIDAK LULUS")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# Form dinamis
-if jenis == "Standarisasi":
-    mg = st.number_input("mg Baku Primer", min_value=0.0)
+# ---------- TAB 2 ----------
+with tab2:
+    st.subheader("Penetapan Kadar")
+    c1, c2 = st.columns(2)
 
-else:
-    N = st.number_input("Normalitas / Molaritas", min_value=0.0)
-    S = st.number_input("Massa / Volume Sampel", min_value=0.0)
+    with c1:
+        pv1 = st.number_input("V1 Kadar (mL)", min_value=0.0)
+        pv2 = st.number_input("V2 Kadar (mL)", min_value=0.0)
+        normalitas = st.number_input("N / M", min_value=0.0)
 
-# =====================================
-# TOMBOL HITUNG
-# =====================================
-if st.button("Hitung"):
+    with c2:
+        pbe = st.number_input("BE/BM Kadar", min_value=0.0001, value=1.0)
+        pfp = st.number_input("FP Kadar", min_value=0.0001, value=1.0)
+        sampel = st.number_input("Massa / Volume Sampel", min_value=0.0001, value=1.0)
 
-    # validasi dasar
-    if V1 == 0 or V2 == 0 or BE == 0 or FP == 0:
-        st.error("Data tidak boleh 0")
-
-    else:
-
-        # =====================================
-        # STANDARISASI
-        # N = mg / (V × BE × FP)
-        # =====================================
-        if jenis == "Standarisasi":
-
-            hasil1 = mg / (V1 * BE * FP)
-            hasil2 = mg / (V2 * BE * FP)
-
-            rata = (hasil1 + hasil2) / 2
-            rpd = abs(hasil1 - hasil2) / rata * 100
-
-            st.header("Hasil Standarisasi")
-            st.success(f"N1 = {hasil1:.4f}")
-            st.success(f"N2 = {hasil2:.4f}")
-            st.write(f"Rata-rata Normalitas = {rata:.4f}")
-            st.write(f"%RPD = {rpd:.2f}%")
-
-        # =====================================
-        # PENETAPAN KADAR
-        # Kadar = (V × N × BE × FP × 10^-3 ×100)/S
-        # =====================================
+    if st.button("Hitung Kadar"):
+        if metode == "Kompleksometri":
+            h1 = (pv1 * normalitas * pbe * 1000) / sampel
+            h2 = (pv2 * normalitas * pbe * 1000) / sampel
+            unit = "ppm"
         else:
+            h1 = ((pv1 * normalitas * pbe * pfp) / sampel) * 100
+            h2 = ((pv2 * normalitas * pbe * pfp) / sampel) * 100
+            unit = "% b/v"
 
-            if S == 0:
-                st.error("Sampel tidak boleh 0")
+        avg = (h1 + h2) / 2
+        hasil_rpd = rpd(h1, h2)
 
-            else:
-                hasil1 = (V1 * N * BE * FP * (10**-3) * 100) / S
-                hasil2 = (V2 * N * BE * FP * (10**-3) * 100) / S
+        st.markdown('<div class="result-box">', unsafe_allow_html=True)
+        st.write(f"**Kadar 1:** {h1:.4f} {unit}")
+        st.write(f"**Kadar 2:** {h2:.4f} {unit}")
+        st.write(f"**Rata-rata:** {avg:.4f} {unit}")
+        st.write(f"**RPD:** {hasil_rpd:.2f}%")
+        st.success("LULUS") if hasil_rpd <= 10 else st.error("TIDAK LULUS")
+        st.markdown('</div>', unsafe_allow_html=True)
 
-                rata = (hasil1 + hasil2) / 2
-                rpd = abs(hasil1 - hasil2) / rata * 100
-
-                st.header("Hasil Penetapan Kadar")
-                st.success(f"Kadar 1 = {hasil1:.2f}%")
-                st.success(f"Kadar 2 = {hasil2:.2f}%")
-                st.write(f"Rata-rata Kadar = {rata:.2f}%")
-                st.write(f"%RPD = {rpd:.2f}%")
-
-        # =====================================
-        # VALIDASI RPD
-        # =====================================
-        if "rpd" in locals():
-            if rpd <= 10:
-                st.success("✅ Presisi Memenuhi Syarat (RPD ≤ 10%)")
-            else:
-                st.error("❌ Presisi Tidak Memenuhi (RPD > 10%)")
+st.markdown("---")
+st.caption("Titrimetri Web • Streamlit")
