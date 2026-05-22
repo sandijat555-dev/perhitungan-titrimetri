@@ -404,4 +404,4 @@ st.markdown("""
 <div class="footer">
     © 2024 Web Perhitungan Titrimetri | Dibuat untuk Laboratorium Kimia Analitik — Politeknik AKA Bogor
 </div>
-""", unsafe_allow_html=True) lu
+""", unsafe_allow_html=True)
