@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 
 st.set_page_config(page_title="Web Titrimetri", layout="wide", page_icon="🧪")
 
@@ -404,4 +404,4 @@ st.markdown("""
 <div class="footer">
     © 2024 Web Perhitungan Titrimetri | Dibuat untuk Laboratorium Kimia Analitik — Politeknik AKA Bogor
 </div>
-""", unsafe_allow_html=True)
+""", unsafe_allow_html=True) lu
