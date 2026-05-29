@@ -72,13 +72,14 @@ div.stButton > button:hover { background:#076b5e !important; }
 # ---------- DATA ----------
 methods = ["Alkalimetri","Asidimetri","Permanganometri","Iodometri","Argentometri","Kompleksometri"]
 
+# Baku primer: nama dan nilai BE/BM
 baku_primer = {
-    "Alkalimetri":      "Asam Oksalat (H₂C₂O₄·2H₂O) / Asam Benzoat",
-    "Asidimetri":       "Na₂CO₃ / Boraks (Na₂B₄O₇·10H₂O)",
-    "Permanganometri":  "As₂O₃ / Asam Oksalat",
-    "Iodometri":        "K₂Cr₂O₇ / As₂O₃",
-    "Argentometri":     "NaCl / KCl (Metode Mohr / Volhard)",
-    "Kompleksometri":   "CaCO₃ (BM = 100,09 g/mol)",
+    "Alkalimetri":     {"nama": "Asam Oksalat (H₂C₂O₄·2H₂O)", "be": 63.03},
+    "Asidimetri":      {"nama": "Boraks (Na₂B₄O₇·10H₂O)",      "be": 190.69},
+    "Permanganometri": {"nama": "Asam Oksalat (H₂C₂O₄·2H₂O)",  "be": 63.03},
+    "Iodometri":       {"nama": "K₂Cr₂O₇",                      "be": 49.03},
+    "Argentometri":    {"nama": "NaCl",                          "be": 58.44},
+    "Kompleksometri":  {"nama": "CaCO₃",                         "be": 100.09},
 }
 
 def rpd(h1, h2):
@@ -192,50 +193,13 @@ components.html("""
 </html>
 """, height=220, scrolling=False)
 
-# ---------- CSS: hide popover on desktop ----------
-st.markdown("""
-<style>
-@media (min-width: 768px) {
-    div[data-testid="stPopover"] { display: none !important; }
-    div[data-testid="column"]:has(div[data-testid="stPopover"]) { display: none !important; }
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ---------- SESSION STATE ----------
-if "metode" not in st.session_state:
-    st.session_state.metode = "Alkalimetri"
-
-# ---------- SIDEBAR: Desktop ----------
+# ---------- SIDEBAR ----------
 with st.sidebar:
     st.markdown('<div class="sidebar-label">Pilih Metode</div>', unsafe_allow_html=True)
-    metode_desktop = st.selectbox("", methods,
-        index=methods.index(st.session_state.metode),
-        key="metode_desktop", label_visibility="collapsed")
-    st.session_state.metode = metode_desktop
+    metode = st.selectbox("", methods, label_visibility="collapsed")
 
+    st.markdown(f'<div class="info-card"><strong>ℹ️ Baku Primer:</strong><br>{baku_primer[metode]["nama"]} &nbsp;|&nbsp; BE/BM = <b>{baku_primer[metode]["be"]}</b></div>', unsafe_allow_html=True)
 
-# ---------- TOP BAR: Mobile popover ----------
-col_btn, col_info = st.columns([1, 3])
-with col_btn:
-    with st.popover("🔬 Metode"):
-        metode_mobile = st.selectbox("Pilih Metode", methods,
-            index=methods.index(st.session_state.metode),
-            key="metode_mobile")
-        st.session_state.metode = metode_mobile
-
-with col_info:
-    st.markdown(f"""
-    <div style="background:#e0f4f1;border-radius:8px;padding:8px 14px;
-        font-size:0.82rem;color:#076b5e;font-weight:700;margin-top:4px">
-        ⚗️ Metode aktif: <b>{st.session_state.metode}</b>
-    </div>""", unsafe_allow_html=True)
-
-metode = st.session_state.metode
-
-# ---------- SIDEBAR: Rumus & Keterangan ----------
-with st.sidebar:
-    st.markdown(f'<div class="info-card"><strong>ℹ️ Baku Primer:</strong><br>{baku_primer[metode]}</div>', unsafe_allow_html=True)
     if metode == "Kompleksometri":
         st.markdown("""
         <div class="rumus-card">
@@ -252,6 +216,7 @@ with st.sidebar:
             <div class="rumus-title" style="margin-top:10px">📖 Penetapan Kadar</div>
             <div class="rumus-formula">Kadar = (V × N × BE × FP × 10⁻³ / S) × 100</div>
         </div>""", unsafe_allow_html=True)
+
     st.markdown("""
     <div class="ket-card">
         <strong>📌 Keterangan</strong><br><br>
@@ -263,8 +228,8 @@ with st.sidebar:
         <span style="color:#0e8a7a;font-weight:700">mg</span> = Massa baku primer (mg)
     </div>""", unsafe_allow_html=True)
 
-# ---------- BATAS RPD (main content) ----------
-col_rpd, col_empty = st.columns([1, 3])
+# ---------- BATAS RPD ----------
+col_rpd, _ = st.columns([1, 3])
 with col_rpd:
     batas_rpd = st.number_input("📏 Batas RPD (%)", min_value=0.1, max_value=20.0, value=10.0, step=0.5)
 
@@ -277,14 +242,17 @@ with tab1:
 
     if metode == "Kompleksometri":
         # Standarisasi EDTA berbasis Molaritas
-        st.info("ℹ️ Kompleksometri: Standarisasi menggunakan **Molaritas (M)** dengan baku primer **CaCO₃**")
+
+        _be_val = baku_primer[metode]["be"]
+        _bp_nama = baku_primer[metode]["nama"]
+        st.markdown(f'<div class="info-card" style="margin-bottom:12px">⚗️ Baku Primer: <b>{_bp_nama}</b> — BM = <b>{_be_val}</b> (auto-terisi)</div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             v1 = st.number_input("Volume EDTA 1 / V1 (mL)", min_value=0.0, format="%.4f", key="s_v1")
             v2 = st.number_input("Volume EDTA 2 / V2 (mL)", min_value=0.0, format="%.4f", key="s_v2")
         with c2:
             mg = st.number_input("Massa CaCO₃ (mg)", min_value=0.0, format="%.4f", key="s_mg")
-            bm = st.number_input("BM CaCO₃ (g/mol)", min_value=0.0001, value=100.09, format="%.4f", key="s_be")
+            bm = st.number_input("BM CaCO₃ (g/mol)", min_value=0.0001, value=float(_be_val), format="%.4f", key="s_be")
         with c3:
             st.markdown("<br>", unsafe_allow_html=True)
 
@@ -313,13 +281,16 @@ with tab1:
                     st.markdown(f'<div class="status-err">❌ TIDAK PRESISI — %RPD = {r:.2f}% (> {batas_rpd}%)</div>', unsafe_allow_html=True)
     else:
         # Standarisasi normal (Normalitas)
+        _be_val = baku_primer[metode]["be"]
+        _bp_nama = baku_primer[metode]["nama"]
+        st.markdown(f'<div class="info-card" style="margin-bottom:12px">⚗️ Baku Primer: <b>{_bp_nama}</b> — BE/BM = <b>{_be_val}</b> (auto-terisi)</div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             v1 = st.number_input("Volume Titran 1 / V1 (mL)", min_value=0.0, format="%.4f", key="s_v1")
             v2 = st.number_input("Volume Titran 2 / V2 (mL)", min_value=0.0, format="%.4f", key="s_v2")
         with c2:
             mg = st.number_input("Massa Baku Primer (mg)", min_value=0.0, format="%.4f", key="s_mg")
-            be = st.number_input("BE / BM Baku Primer", min_value=0.0001, value=1.0, format="%.4f", key="s_be")
+            be = st.number_input("BE / BM Baku Primer", min_value=0.0001, value=float(_be_val), format="%.4f", key="s_be")
         with c3:
             fp = st.number_input("Faktor Pengali (FP)", min_value=0.0001, value=1.0, format="%.4f", key="s_fp")
 
@@ -351,14 +322,16 @@ with tab2:
     st.markdown('<div class="sec-header"><span style="font-size:18px">📊</span><h3>INPUT DATA — Penetapan Kadar</h3></div>', unsafe_allow_html=True)
 
     if metode == "Kompleksometri":
-        st.info("ℹ️ Kompleksometri: Penetapan **Kesadahan** — hasil dalam **ppm CaCO₃**")
+        _bm_val = baku_primer[metode]["be"]
+        _bp_nama = baku_primer[metode]["nama"]
+        st.markdown(f'<div class="info-card" style="margin-bottom:12px">⚗️ Baku Primer: <b>{_bp_nama}</b> — BM = <b>{_bm_val}</b> | Hasil: <b>ppm CaCO₃</b></div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             pv1 = st.number_input("Volume EDTA 1 / V1 (mL)", min_value=0.0, format="%.4f", key="k_v1")
             pv2 = st.number_input("Volume EDTA 2 / V2 (mL)", min_value=0.0, format="%.4f", key="k_v2")
         with c2:
             nm  = st.number_input("Molaritas EDTA (M)", min_value=0.0, format="%.4f", key="k_nm")
-            pbe = st.number_input("BM CaCO₃ (g/mol)", min_value=0.0001, value=100.09, format="%.4f", key="k_be")
+            pbe = st.number_input("BM CaCO₃ (g/mol)", min_value=0.0001, value=float(_bm_val), format="%.4f", key="k_be")
         with c3:
             pfp = st.number_input("Faktor Pengali (FP)", min_value=0.0001, value=1.0, format="%.4f", key="k_fp")
             s   = st.number_input("Volume Sampel / V sampel (mL)", min_value=0.0001, value=1.0, format="%.4f", key="k_s")
