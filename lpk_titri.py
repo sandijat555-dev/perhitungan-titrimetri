@@ -89,46 +89,46 @@ def rpd(h1, h2):
 st.markdown("""
 <div class="hero">
 
-    <!-- KIRI: Buret on stand + Pipette -->
+    
     <div class="hero-side">
 
-        <!-- Statif + Buret -->
+        
         <svg width="72" height="130" viewBox="0 0 72 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Statif base -->
+            
             <rect x="8" y="120" width="40" height="7" rx="3" fill="white" fill-opacity="0.55"/>
-            <!-- Statif pole -->
+            
             <rect x="14" y="20" width="5" height="103" rx="2" fill="white" fill-opacity="0.45"/>
-            <!-- Clamp arm -->
+            
             <rect x="14" y="28" width="18" height="4" rx="2" fill="white" fill-opacity="0.5"/>
-            <!-- Buret body -->
+            
             <rect x="29" y="10" width="10" height="5" rx="2" fill="white" fill-opacity="0.75"/>
             <rect x="31" y="15" width="6" height="58" rx="2" fill="white" fill-opacity="0.6"/>
-            <!-- Liquid inside buret -->
+            
             <rect x="32" y="16" width="4" height="35" rx="1" fill="#38bdf8" fill-opacity="0.5"/>
-            <!-- Stopcock -->
+            
             <rect x="27" y="58" width="14" height="5" rx="2" fill="#065f52" fill-opacity="0.75"/>
             <rect x="39" y="59" width="9" height="3" rx="1.5" fill="#054e44" fill-opacity="0.8"/>
-            <!-- Tip -->
+            
             <path d="M33 73 L31 88 L33 95 L35 95 L37 88 L35 73 Z" fill="white" fill-opacity="0.55"/>
-            <!-- Drop -->
+            
             <ellipse cx="34" cy="100" rx="2.5" ry="3.5" fill="#38bdf8" fill-opacity="0.7"/>
         </svg>
 
-        <!-- Pipette -->
+        
         <svg width="28" height="110" viewBox="0 0 28 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left:-10px; margin-top:10px">
-            <!-- Bulb -->
+            
             <ellipse cx="14" cy="18" rx="10" ry="14" fill="white" fill-opacity="0.45"/>
-            <!-- Body -->
+            
             <rect x="11" y="30" width="6" height="55" rx="2" fill="white" fill-opacity="0.5"/>
-            <!-- Liquid -->
+            
             <rect x="12" y="38" width="4" height="30" rx="1" fill="#0ea5e9" fill-opacity="0.4"/>
-            <!-- Tip -->
+            
             <path d="M12 85 L11 95 L13.5 103 L14.5 103 L17 95 L16 85 Z" fill="white" fill-opacity="0.5"/>
         </svg>
 
     </div>
 
-    <!-- TENGAH -->
+    
     <div class="hero-center">
         <div class="hero-badge">⚗️ Laboratorium Kimia Analitik</div>
         <h1>Web Perhitungan</h1>
@@ -138,40 +138,40 @@ st.markdown("""
         <p class="hero-sub">Standarisasi &nbsp;•&nbsp; Penetapan Kadar &nbsp;•&nbsp; RPD Otomatis &nbsp;•&nbsp; 6 Metode</p>
     </div>
 
-    <!-- KANAN: Erlenmeyer + Volumetric Flask -->
+    
     <div class="hero-side">
 
-        <!-- Erlenmeyer dengan larutan berwarna -->
+        
         <svg width="80" height="110" viewBox="0 0 80 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Neck -->
+            
             <rect x="30" y="4" width="20" height="5" rx="2.5" fill="white" fill-opacity="0.65"/>
             <rect x="33" y="9" width="14" height="22" rx="2" fill="white" fill-opacity="0.55"/>
-            <!-- Body outline -->
+            
             <path d="M33 31 L8 78 Q5 90 40 90 Q75 90 72 78 L47 31 Z" fill="white" fill-opacity="0.3"/>
-            <!-- Liquid (pink - endpoint indicator) -->
+            
             <path d="M34 50 L12 78 Q10 87 40 87 Q70 87 68 78 L46 50 Z" fill="#f9a8d4" fill-opacity="0.5"/>
-            <!-- Highlight -->
+            
             <path d="M33 31 L30 45 L35 48 L38 32 Z" fill="white" fill-opacity="0.2"/>
-            <!-- Base line -->
+            
             <ellipse cx="40" cy="88" rx="28" ry="5" fill="white" fill-opacity="0.15"/>
-            <!-- Graduations -->
+            
             <line x1="25" y1="65" x2="30" y2="65" stroke="white" stroke-opacity="0.4" stroke-width="1.5"/>
             <line x1="22" y1="74" x2="28" y2="74" stroke="white" stroke-opacity="0.4" stroke-width="1.5"/>
         </svg>
 
-        <!-- Labu ukur (Volumetric Flask) -->
+        
         <svg width="55" height="100" viewBox="0 0 55 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:6px">
-            <!-- Stopper -->
+            
             <rect x="21" y="1" width="13" height="7" rx="3" fill="white" fill-opacity="0.6"/>
-            <!-- Neck -->
+            
             <rect x="23" y="8" width="9" height="28" rx="2" fill="white" fill-opacity="0.5"/>
-            <!-- Body -->
+            
             <ellipse cx="27.5" cy="72" rx="24" ry="24" fill="white" fill-opacity="0.28"/>
-            <!-- Liquid -->
+            
             <path d="M6 78 Q5 94 27.5 95 Q50 94 49 78 Z" fill="#6ee7b7" fill-opacity="0.45"/>
-            <!-- Graduation mark -->
+            
             <line x1="18" y1="50" x2="25" y2="50" stroke="white" stroke-opacity="0.5" stroke-width="1.5"/>
-            <!-- Neck liquid -->
+            
             <rect x="24" y="32" width="7" height="8" rx="1" fill="#6ee7b7" fill-opacity="0.35"/>
         </svg>
 
