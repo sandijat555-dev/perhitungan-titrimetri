@@ -86,98 +86,111 @@ def rpd(h1, h2):
     return 0 if avg == 0 else abs(h1 - h2) / avg * 100
 
 # ---------- HERO ----------
-st.markdown("""
+import streamlit.components.v1 as components
+components.html("""
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: transparent; }
+  .hero {
+    background: linear-gradient(135deg, #b2ece8 0%, #80d8d4 30%, #4dc4c8 60%, #2aa8bb 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    min-height: 185px;
+    box-shadow: 0 6px 24px rgba(14,138,122,0.18);
+    overflow: hidden;
+    position: relative;
+    font-family: Georgia, serif;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.04) 20px, rgba(255,255,255,0.04) 40px);
+  }
+  .side {
+    width: 130px; min-width: 100px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; padding: 16px 10px;
+    z-index: 2; opacity: 0.75;
+  }
+  .center {
+    flex: 1; text-align: center; padding: 24px 10px; z-index: 2;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.3);
+    border: 1.5px solid rgba(255,255,255,0.6);
+    border-radius: 20px; padding: 3px 16px;
+    font-size: 11px; color: #1a2e44; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 10px; font-family: sans-serif;
+  }
+  h1 { color: #1a2e44; font-size: 28px; font-weight: 900; margin: 0; }
+  .orange { color: #c96f00; font-size: 28px; font-weight: 900; margin: 2px 0; }
+  .teal   { color: #054e44; font-size: 28px; font-weight: 900; margin: 2px 0; }
+  .line { width: 50px; height: 3px; background: rgba(255,255,255,0.65); border-radius: 2px; margin: 10px auto 8px; }
+  .sub { color: #1a2e44; opacity: 0.6; font-size: 12px; font-family: sans-serif; }
+</style>
+</head>
+<body>
 <div class="hero">
 
-    
-    <div class="hero-side">
+  <div class="side">
+    <svg width="52" height="130" viewBox="0 0 52 130">
+      <rect x="4" y="118" width="36" height="7" rx="3" fill="white" fill-opacity="0.6"/>
+      <rect x="8" y="18" width="5" height="103" rx="2" fill="white" fill-opacity="0.5"/>
+      <rect x="8" y="26" width="18" height="4" rx="2" fill="white" fill-opacity="0.55"/>
+      <rect x="22" y="8" width="10" height="5" rx="2" fill="white" fill-opacity="0.8"/>
+      <rect x="24" y="13" width="6" height="58" rx="2" fill="white" fill-opacity="0.65"/>
+      <rect x="25" y="14" width="4" height="30" rx="1" fill="#38bdf8" fill-opacity="0.55"/>
+      <rect x="20" y="56" width="14" height="5" rx="2" fill="#065f52" fill-opacity="0.8"/>
+      <rect x="32" y="57" width="9" height="3" rx="1.5" fill="#054e44" fill-opacity="0.85"/>
+      <path d="M26 71 L24 86 L26 93 L28 93 L30 86 L28 71 Z" fill="white" fill-opacity="0.6"/>
+      <ellipse cx="27" cy="98" rx="2.5" ry="3.5" fill="#38bdf8" fill-opacity="0.8"/>
+    </svg>
+    <svg width="30" height="105" viewBox="0 0 30 105">
+      <ellipse cx="15" cy="17" rx="10" ry="13" fill="white" fill-opacity="0.5"/>
+      <rect x="12" y="28" width="6" height="50" rx="2" fill="white" fill-opacity="0.55"/>
+      <rect x="13" y="35" width="4" height="28" rx="1" fill="#0ea5e9" fill-opacity="0.45"/>
+      <path d="M13 78 L12 88 L14.5 97 L15.5 97 L18 88 L17 78 Z" fill="white" fill-opacity="0.55"/>
+    </svg>
+  </div>
 
-        
-        <svg width="72" height="130" viewBox="0 0 72 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-            
-            <rect x="8" y="120" width="40" height="7" rx="3" fill="white" fill-opacity="0.55"/>
-            
-            <rect x="14" y="20" width="5" height="103" rx="2" fill="white" fill-opacity="0.45"/>
-            
-            <rect x="14" y="28" width="18" height="4" rx="2" fill="white" fill-opacity="0.5"/>
-            
-            <rect x="29" y="10" width="10" height="5" rx="2" fill="white" fill-opacity="0.75"/>
-            <rect x="31" y="15" width="6" height="58" rx="2" fill="white" fill-opacity="0.6"/>
-            
-            <rect x="32" y="16" width="4" height="35" rx="1" fill="#38bdf8" fill-opacity="0.5"/>
-            
-            <rect x="27" y="58" width="14" height="5" rx="2" fill="#065f52" fill-opacity="0.75"/>
-            <rect x="39" y="59" width="9" height="3" rx="1.5" fill="#054e44" fill-opacity="0.8"/>
-            
-            <path d="M33 73 L31 88 L33 95 L35 95 L37 88 L35 73 Z" fill="white" fill-opacity="0.55"/>
-            
-            <ellipse cx="34" cy="100" rx="2.5" ry="3.5" fill="#38bdf8" fill-opacity="0.7"/>
-        </svg>
+  <div class="center">
+    <div class="badge">⚗️ Laboratorium Kimia Analitik</div>
+    <h1>Web Perhitungan</h1>
+    <p class="orange">Kadar dan Standarisasi</p>
+    <p class="teal">✦ Titrimetri ✦</p>
+    <div class="line"></div>
+    <p class="sub">Standarisasi &nbsp;•&nbsp; Penetapan Kadar &nbsp;•&nbsp; RPD Otomatis &nbsp;•&nbsp; 6 Metode</p>
+  </div>
 
-        
-        <svg width="28" height="110" viewBox="0 0 28 110" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left:-10px; margin-top:10px">
-            
-            <ellipse cx="14" cy="18" rx="10" ry="14" fill="white" fill-opacity="0.45"/>
-            
-            <rect x="11" y="30" width="6" height="55" rx="2" fill="white" fill-opacity="0.5"/>
-            
-            <rect x="12" y="38" width="4" height="30" rx="1" fill="#0ea5e9" fill-opacity="0.4"/>
-            
-            <path d="M12 85 L11 95 L13.5 103 L14.5 103 L17 95 L16 85 Z" fill="white" fill-opacity="0.5"/>
-        </svg>
+  <div class="side">
+    <svg width="70" height="105" viewBox="0 0 70 105">
+      <rect x="27" y="2" width="16" height="5" rx="2.5" fill="white" fill-opacity="0.7"/>
+      <rect x="30" y="7" width="10" height="22" rx="2" fill="white" fill-opacity="0.6"/>
+      <path d="M30 29 L6 74 Q4 86 35 86 Q66 86 64 74 L40 29 Z" fill="white" fill-opacity="0.35"/>
+      <path d="M32 48 L10 74 Q9 83 35 83 Q61 83 60 74 L38 48 Z" fill="#f9a8d4" fill-opacity="0.55"/>
+      <line x1="22" y1="62" x2="28" y2="62" stroke="white" stroke-opacity="0.5" stroke-width="1.5"/>
+      <line x1="19" y1="72" x2="26" y2="72" stroke="white" stroke-opacity="0.5" stroke-width="1.5"/>
+    </svg>
+    <svg width="48" height="100" viewBox="0 0 48 100">
+      <rect x="17" y="1" width="14" height="7" rx="3" fill="white" fill-opacity="0.65"/>
+      <rect x="20" y="8" width="8" height="26" rx="2" fill="white" fill-opacity="0.55"/>
+      <ellipse cx="24" cy="68" rx="21" ry="22" fill="white" fill-opacity="0.3"/>
+      <path d="M5 74 Q4 90 24 91 Q44 90 43 74 Z" fill="#6ee7b7" fill-opacity="0.5"/>
+      <line x1="15" y1="48" x2="22" y2="48" stroke="white" stroke-opacity="0.55" stroke-width="1.5"/>
+      <rect x="21" y="30" width="6" height="8" rx="1" fill="#6ee7b7" fill-opacity="0.4"/>
+    </svg>
+  </div>
 
-    </div>
-
-    
-    <div class="hero-center">
-        <div class="hero-badge">⚗️ Laboratorium Kimia Analitik</div>
-        <h1>Web Perhitungan</h1>
-        <p class="orange">Kadar dan Standarisasi</p>
-        <p class="teal">✦ Titrimetri ✦</p>
-        <div class="hero-line"></div>
-        <p class="hero-sub">Standarisasi &nbsp;•&nbsp; Penetapan Kadar &nbsp;•&nbsp; RPD Otomatis &nbsp;•&nbsp; 6 Metode</p>
-    </div>
-
-    
-    <div class="hero-side">
-
-        
-        <svg width="80" height="110" viewBox="0 0 80 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-            
-            <rect x="30" y="4" width="20" height="5" rx="2.5" fill="white" fill-opacity="0.65"/>
-            <rect x="33" y="9" width="14" height="22" rx="2" fill="white" fill-opacity="0.55"/>
-            
-            <path d="M33 31 L8 78 Q5 90 40 90 Q75 90 72 78 L47 31 Z" fill="white" fill-opacity="0.3"/>
-            
-            <path d="M34 50 L12 78 Q10 87 40 87 Q70 87 68 78 L46 50 Z" fill="#f9a8d4" fill-opacity="0.5"/>
-            
-            <path d="M33 31 L30 45 L35 48 L38 32 Z" fill="white" fill-opacity="0.2"/>
-            
-            <ellipse cx="40" cy="88" rx="28" ry="5" fill="white" fill-opacity="0.15"/>
-            
-            <line x1="25" y1="65" x2="30" y2="65" stroke="white" stroke-opacity="0.4" stroke-width="1.5"/>
-            <line x1="22" y1="74" x2="28" y2="74" stroke="white" stroke-opacity="0.4" stroke-width="1.5"/>
-        </svg>
-
-        
-        <svg width="55" height="100" viewBox="0 0 55 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:6px">
-            
-            <rect x="21" y="1" width="13" height="7" rx="3" fill="white" fill-opacity="0.6"/>
-            
-            <rect x="23" y="8" width="9" height="28" rx="2" fill="white" fill-opacity="0.5"/>
-            
-            <ellipse cx="27.5" cy="72" rx="24" ry="24" fill="white" fill-opacity="0.28"/>
-            
-            <path d="M6 78 Q5 94 27.5 95 Q50 94 49 78 Z" fill="#6ee7b7" fill-opacity="0.45"/>
-            
-            <line x1="18" y1="50" x2="25" y2="50" stroke="white" stroke-opacity="0.5" stroke-width="1.5"/>
-            
-            <rect x="24" y="32" width="7" height="8" rx="1" fill="#6ee7b7" fill-opacity="0.35"/>
-        </svg>
-
-    </div>
 </div>
-""", unsafe_allow_html=True)
+</body>
+</html>
+""", height=195)
 
 # ---------- SIDEBAR ----------
 with st.sidebar:
