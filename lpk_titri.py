@@ -190,16 +190,52 @@ components.html("""
 </div>
 </body>
 </html>
-""", height=195)
+""", height=220, scrolling=False)
 
-# ---------- SIDEBAR ----------
+# ---------- CSS: hide popover on desktop ----------
+st.markdown("""
+<style>
+@media (min-width: 768px) {
+    div[data-testid="stPopover"] { display: none !important; }
+    div[data-testid="column"]:has(div[data-testid="stPopover"]) { display: none !important; }
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------- SESSION STATE ----------
+if "metode" not in st.session_state:
+    st.session_state.metode = "Alkalimetri"
+
+# ---------- SIDEBAR: Desktop ----------
 with st.sidebar:
     st.markdown('<div class="sidebar-label">Pilih Metode</div>', unsafe_allow_html=True)
-    metode = st.selectbox("", methods, label_visibility="collapsed")
+    metode_desktop = st.selectbox("", methods,
+        index=methods.index(st.session_state.metode),
+        key="metode_desktop", label_visibility="collapsed")
+    st.session_state.metode = metode_desktop
 
+
+# ---------- TOP BAR: Mobile popover ----------
+col_btn, col_info = st.columns([1, 3])
+with col_btn:
+    with st.popover("🔬 Metode"):
+        metode_mobile = st.selectbox("Pilih Metode", methods,
+            index=methods.index(st.session_state.metode),
+            key="metode_mobile")
+        st.session_state.metode = metode_mobile
+
+with col_info:
+    st.markdown(f"""
+    <div style="background:#e0f4f1;border-radius:8px;padding:8px 14px;
+        font-size:0.82rem;color:#076b5e;font-weight:700;margin-top:4px">
+        ⚗️ Metode aktif: <b>{st.session_state.metode}</b>
+    </div>""", unsafe_allow_html=True)
+
+metode = st.session_state.metode
+
+# ---------- SIDEBAR: Rumus & Keterangan ----------
+with st.sidebar:
     st.markdown(f'<div class="info-card"><strong>ℹ️ Baku Primer:</strong><br>{baku_primer[metode]}</div>', unsafe_allow_html=True)
-
-    # Rumus dinamis berdasarkan metode
     if metode == "Kompleksometri":
         st.markdown("""
         <div class="rumus-card">
@@ -216,7 +252,6 @@ with st.sidebar:
             <div class="rumus-title" style="margin-top:10px">📖 Penetapan Kadar</div>
             <div class="rumus-formula">Kadar = (V × N × BE × FP × 10⁻³ / S) × 100</div>
         </div>""", unsafe_allow_html=True)
-
     st.markdown("""
     <div class="ket-card">
         <strong>📌 Keterangan</strong><br><br>
@@ -228,8 +263,10 @@ with st.sidebar:
         <span style="color:#0e8a7a;font-weight:700">mg</span> = Massa baku primer (mg)
     </div>""", unsafe_allow_html=True)
 
-    st.markdown('<div class="sidebar-label" style="margin-top:16px">Batas RPD (%)</div>', unsafe_allow_html=True)
-    batas_rpd = st.number_input("", min_value=0.1, max_value=20.0, value=10.0, step=0.5, label_visibility="collapsed")
+# ---------- BATAS RPD (main content) ----------
+col_rpd, col_empty = st.columns([1, 3])
+with col_rpd:
+    batas_rpd = st.number_input("📏 Batas RPD (%)", min_value=0.1, max_value=20.0, value=10.0, step=0.5)
 
 # ---------- TABS ----------
 tab1, tab2 = st.tabs(["🧪 Standarisasi", "📊 Penetapan Kadar"])
