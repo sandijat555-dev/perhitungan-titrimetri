@@ -72,9 +72,22 @@ div.stButton > button:hover { background:#076b5e !important; }
 # ---------- DATA ----------
 methods = ["Alkalimetri","Asidimetri","Permanganometri","Iodometri","Argentometri","Kompleksometri"]
 
-# HDPE bottle icon SVG
+# HDPE reagent bottle SVG icon (wide-mouth solid chemical bottle)
 hdpe_icon = (
-    '{hdpe_icon}'
+    '<svg width="28" height="36" viewBox="0 0 28 36" '
+    'style="vertical-align:middle;margin-right:7px" xmlns="http://www.w3.org/2000/svg">'
+    '<rect x="7" y="0" width="14" height="6" rx="2.5" fill="#e67e22"/>'
+    '<rect x="8" y="1" width="12" height="4" rx="2" fill="#f5b042"/>'
+    '<rect x="8" y="6" width="12" height="3" rx="1" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="0.5"/>'
+    '<rect x="2" y="9" width="24" height="25" rx="4" fill="#f8f9fa" stroke="#ced4da" stroke-width="1.2"/>'
+    '<rect x="3" y="10" width="4" height="23" rx="2" fill="white" fill-opacity="0.55"/>'
+    '<rect x="5" y="12" width="18" height="15" rx="2" fill="white" stroke="#dee2e6" stroke-width="0.7"/>'
+    '<rect x="6.5" y="13.5" width="15" height="2" rx="0.8" fill="#2c3e50" fill-opacity="0.8"/>'
+    '<rect x="6.5" y="17" width="11" height="1.2" rx="0.5" fill="#7f8c8d" fill-opacity="0.7"/>'
+    '<rect x="6.5" y="19.5" width="13" height="1.2" rx="0.5" fill="#7f8c8d" fill-opacity="0.7"/>'
+    '<rect x="6.5" y="22" width="9" height="1.2" rx="0.5" fill="#7f8c8d" fill-opacity="0.5"/>'
+    '<rect x="2" y="32" width="24" height="2" rx="1" fill="#dee2e6"/>'
+    '</svg>'
 )
 
 # Baku primer: nama dan nilai BE/BM
@@ -196,7 +209,7 @@ components.html("""
 </div>
 </body>
 </html>
-""", height=220, scrolling=False)
+""", height=260, scrolling=False)
 
 # ---------- SIDEBAR ----------
 with st.sidebar:
