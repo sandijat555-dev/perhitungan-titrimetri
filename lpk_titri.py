@@ -67,10 +67,10 @@ div.stButton > button {
 div.stButton > button:hover { background:#076b5e !important; }
 .footer { text-align:center; color:#7a8fa6; font-size:.75rem; padding:16px; border-top:1px solid #d4e6e3; margin-top:20px; }
 
-/* Tombol buka/tutup sidebar - merah agar kontras */
+/* Tombol >> buka sidebar (collapsed state) */
 [data-testid="stSidebarCollapsedControl"] {
     background-color: #e74c3c !important;
-    border-radius: 0 8px 8px 0 !important;
+    border-radius: 0 10px 10px 0 !important;
 }
 [data-testid="stSidebarCollapsedControl"] button {
     color: white !important;
@@ -78,10 +78,20 @@ div.stButton > button:hover { background:#076b5e !important; }
 [data-testid="stSidebarCollapsedControl"]:hover {
     background-color: #c0392b !important;
 }
-button[kind="header"] {
-    color: white !important;
+/* Tombol X / tutup sidebar (di dalam sidebar) */
+[data-testid="stSidebar"] button[kind="header"],
+[data-testid="stSidebar"] [data-testid="stBaseButton-header"],
+[data-testid="stSidebar"] > div:first-child > div > button,
+[data-testid="stSidebarContent"] ~ div button,
+section[data-testid="stSidebar"] div[data-testid="stSidebarHeader"] button,
+button[data-testid="stSidebarNavCollapseButton"] {
     background-color: #e74c3c !important;
+    color: white !important;
     border-radius: 8px !important;
+}
+/* Garis kecil di atas sidebar (handle) */
+[data-testid="stSidebar"] > div:first-child {
+    background-color: #e74c3c !important;
 }
 </style>
 """, unsafe_allow_html=True)
