@@ -209,7 +209,7 @@ components.html("""
 </div>
 </body>
 </html>
-""", height=260, scrolling=False)
+""", height=310, scrolling=False)
 
 # ---------- SIDEBAR ----------
 with st.sidebar:
