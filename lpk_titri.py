@@ -72,6 +72,11 @@ div.stButton > button:hover { background:#076b5e !important; }
 # ---------- DATA ----------
 methods = ["Alkalimetri","Asidimetri","Permanganometri","Iodometri","Argentometri","Kompleksometri"]
 
+# HDPE bottle icon SVG
+hdpe_icon = (
+    '{hdpe_icon}'
+)
+
 # Baku primer: nama dan nilai BE/BM
 baku_primer = {
     "Alkalimetri":     {"nama": "Asam Oksalat (H₂C₂O₄·2H₂O)", "be": 63.03},
@@ -198,7 +203,7 @@ with st.sidebar:
     st.markdown('<div class="sidebar-label">Pilih Metode</div>', unsafe_allow_html=True)
     metode = st.selectbox("", methods, label_visibility="collapsed")
 
-    st.markdown(f'<div class="info-card"><strong>ℹ️ Baku Primer:</strong><br>{baku_primer[metode]["nama"]} &nbsp;|&nbsp; BE/BM = <b>{baku_primer[metode]["be"]}</b></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="info-card">{hdpe_icon}<b>{baku_primer[metode]["nama"]}</b> &nbsp;|&nbsp; BE/BM = <b>{baku_primer[metode]["be"]}</b></div>', unsafe_allow_html=True)
 
     if metode == "Kompleksometri":
         st.markdown("""
@@ -245,7 +250,7 @@ with tab1:
 
         _be_val = baku_primer[metode]["be"]
         _bp_nama = baku_primer[metode]["nama"]
-        st.markdown(f'<div class="info-card" style="margin-bottom:12px">⚗️ Baku Primer: <b>{_bp_nama}</b> — BM = <b>{_be_val}</b> (auto-terisi)</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="info-card" style="margin-bottom:12px">{hdpe_icon}<b>{_bp_nama}</b> &nbsp;|&nbsp; BM = <b>{_be_val}</b></div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             v1 = st.number_input("Volume EDTA 1 / V1 (mL)", min_value=0.0, format="%.4f", key="s_v1")
@@ -283,7 +288,7 @@ with tab1:
         # Standarisasi normal (Normalitas)
         _be_val = baku_primer[metode]["be"]
         _bp_nama = baku_primer[metode]["nama"]
-        st.markdown(f'<div class="info-card" style="margin-bottom:12px">⚗️ Baku Primer: <b>{_bp_nama}</b> — BE/BM = <b>{_be_val}</b> (auto-terisi)</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="info-card" style="margin-bottom:12px">{hdpe_icon}<b>{_bp_nama}</b> &nbsp;|&nbsp; BE/BM = <b>{_be_val}</b></div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             v1 = st.number_input("Volume Titran 1 / V1 (mL)", min_value=0.0, format="%.4f", key="s_v1")
@@ -324,7 +329,7 @@ with tab2:
     if metode == "Kompleksometri":
         _bm_val = baku_primer[metode]["be"]
         _bp_nama = baku_primer[metode]["nama"]
-        st.markdown(f'<div class="info-card" style="margin-bottom:12px">⚗️ Baku Primer: <b>{_bp_nama}</b> — BM = <b>{_bm_val}</b> | Hasil: <b>ppm CaCO₃</b></div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="info-card" style="margin-bottom:12px">{hdpe_icon}<b>{_bp_nama}</b> &nbsp;|&nbsp; BM = <b>{_bm_val}</b> | Hasil: <b>ppm CaCO₃</b></div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns(3)
         with c1:
             pv1 = st.number_input("Volume EDTA 1 / V1 (mL)", min_value=0.0, format="%.4f", key="k_v1")
