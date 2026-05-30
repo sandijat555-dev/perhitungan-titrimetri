@@ -66,6 +66,23 @@ div.stButton > button {
 }
 div.stButton > button:hover { background:#076b5e !important; }
 .footer { text-align:center; color:#7a8fa6; font-size:.75rem; padding:16px; border-top:1px solid #d4e6e3; margin-top:20px; }
+
+/* Tombol buka/tutup sidebar - merah agar kontras */
+[data-testid="stSidebarCollapsedControl"] {
+    background-color: #e74c3c !important;
+    border-radius: 0 8px 8px 0 !important;
+}
+[data-testid="stSidebarCollapsedControl"] button {
+    color: white !important;
+}
+[data-testid="stSidebarCollapsedControl"]:hover {
+    background-color: #c0392b !important;
+}
+button[kind="header"] {
+    color: white !important;
+    background-color: #e74c3c !important;
+    border-radius: 8px !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
