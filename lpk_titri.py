@@ -11,7 +11,7 @@ st.markdown("""
     background: linear-gradient(135deg, #b2ece8 0%, #80d8d4 30%, #4dc4c8 60%, #2aa8bb 100%);
     border-radius: 18px; margin-bottom: 24px; position: relative;
     overflow: hidden; display: flex; align-items: center;
-    min-height: 180px; box-shadow: 0 6px 24px rgba(14,138,122,0.18);
+    min-height: 380px; box-shadow: 0 6px 24px rgba(14,138,122,0.18);
 }
 .hero::before {
     content: ''; position: absolute; inset: 0;
@@ -118,7 +118,7 @@ components.html("""
     border-radius: 18px;
     display: flex;
     align-items: center;
-    min-height: 185px;
+    min-height: 380px;
     box-shadow: 0 6px 24px rgba(14,138,122,0.18);
     overflow: hidden;
     position: relative;
@@ -209,7 +209,7 @@ components.html("""
 </div>
 </body>
 </html>
-""", height=310, scrolling=False)
+""", height=400, scrolling=False)
 
 # ---------- SIDEBAR ----------
 with st.sidebar:
