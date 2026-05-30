@@ -69,14 +69,14 @@ div.stButton > button:hover { background:#076b5e !important; }
 
 /* Tombol >> buka sidebar (collapsed state) */
 [data-testid="stSidebarCollapsedControl"] {
-    background-color: #e74c3c !important;
+    background-color: #0e8a7a !important;
     border-radius: 0 10px 10px 0 !important;
 }
 [data-testid="stSidebarCollapsedControl"] button {
     color: white !important;
 }
 [data-testid="stSidebarCollapsedControl"]:hover {
-    background-color: #c0392b !important;
+    background-color: #076b5e !important;
 }
 /* Tombol X / tutup sidebar (di dalam sidebar) */
 [data-testid="stSidebar"] button[kind="header"],
@@ -85,13 +85,12 @@ div.stButton > button:hover { background:#076b5e !important; }
 [data-testid="stSidebarContent"] ~ div button,
 section[data-testid="stSidebar"] div[data-testid="stSidebarHeader"] button,
 button[data-testid="stSidebarNavCollapseButton"] {
-    background-color: #e74c3c !important;
+    background-color: #0e8a7a !important;
     color: white !important;
     border-radius: 8px !important;
 }
-/* Garis kecil di atas sidebar (handle) */
 [data-testid="stSidebar"] > div:first-child {
-    background-color: #e74c3c !important;
+    background-color: #0e8a7a !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -264,13 +263,21 @@ with st.sidebar:
 
     st.markdown("""
     <div class="ket-card">
-        <strong>📌 Keterangan</strong><br><br>
-        <span style="color:#0e8a7a;font-weight:700">V</span> = Volume titran (mL)<br>
-        <span style="color:#0e8a7a;font-weight:700">N/M</span> = Normalitas / Molaritas<br>
-        <span style="color:#0e8a7a;font-weight:700">BE/BM</span> = Berat Ekuivalen / BM<br>
-        <span style="color:#0e8a7a;font-weight:700">FP</span> = Faktor Pengali<br>
-        <span style="color:#0e8a7a;font-weight:700">S</span> = Massa / Volume Sampel<br>
-        <span style="color:#0e8a7a;font-weight:700">mg</span> = Massa baku primer (mg)
+        <div style="font-weight:800;color:#1a2e44;margin-bottom:10px;font-size:0.85rem">📌 Keterangan</div>
+        <div style="display:grid;grid-template-columns:40px 1fr;gap:5px;align-items:center">
+            <span style="color:#0e8a7a;font-weight:800;font-size:0.9rem">V</span>
+            <span style="color:#1a2e44;font-size:0.82rem">= Volume titran (mL)</span>
+            <span style="color:#0e8a7a;font-weight:800;font-size:0.9rem">N/M</span>
+            <span style="color:#1a2e44;font-size:0.82rem">= Normalitas / Molaritas</span>
+            <span style="color:#0e8a7a;font-weight:800;font-size:0.9rem">BE/BM</span>
+            <span style="color:#1a2e44;font-size:0.82rem">= Berat Ekuivalen / BM</span>
+            <span style="color:#0e8a7a;font-weight:800;font-size:0.9rem">FP</span>
+            <span style="color:#1a2e44;font-size:0.82rem">= Faktor Pengali</span>
+            <span style="color:#0e8a7a;font-weight:800;font-size:0.9rem">S</span>
+            <span style="color:#1a2e44;font-size:0.82rem">= Massa / Volume Sampel</span>
+            <span style="color:#0e8a7a;font-weight:800;font-size:0.9rem">mg</span>
+            <span style="color:#1a2e44;font-size:0.82rem">= Massa baku primer (mg)</span>
+        </div>
     </div>""", unsafe_allow_html=True)
 
 # ---------- BATAS RPD ----------
