@@ -289,4 +289,4 @@ with tab2:
                     st.error(f"❌ TIDAK PRESISI — %RPD = {r:.2f}% (> {batas_rpd}%)")
 
 st.divider()
-st.caption("© 2024 Web Perhitungan Titrimetri | Laboratorium Kimia Analitik — Politeknik AKA Bogor")
+st.caption("© 2026 Web Perhitungan Titrimetri | Laboratorium Kimia Analitik — Politeknik AKA Bogor")
