@@ -38,8 +38,8 @@ def hitung_standarisasi(mg, v1, v2, be, fp):
     return n1, n2
 
 def hitung_standarisasi_edta(mg, v1, v2, bm):
-    m1 = mg / (v1 * bm)
-    m2 = mg / (v2 * bm)
+    m1 = mg / (v1 * bm * fp)
+    m2 = mg / (v2 * bm * fp)
     return m1, m2
 
 def hitung_kadar(v1, v2, nm, be, fp, s):
