@@ -381,4 +381,284 @@ input[type=number]:focus,select:focus{border-color:var(--mint-med);box-shadow:0 
 
       <main class="main-panel">
         <div class="rpd-row">
-          <labe
+          <label>📏 Batas RPD (%)</label>
+          <input type="number" id="batas-rpd" value="10" min="0.1" max="20" step="0.5" style="width:100px;margin-top:0">
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" id="tab-std-btn" onclick="switchTab('std')">🧪 Standarisasi</button>
+          <button class="tab" id="tab-kad-btn" onclick="switchTab('kad')">📊 Penetapan Kadar</button>
+        </div>
+
+        <!-- TAB STANDARISASI -->
+        <div id="tab-std" class="tab-content">
+          <div class="sec-header">
+            <span>🧪</span><h3>Standarisasi Larutan Titran</h3>
+          </div>
+          <div class="form-grid">
+            <div>
+              <label>V1 — Volume titran duplo 1 (mL)</label>
+              <input type="number" id="std-v1" placeholder="cth: 12.50" step="0.01">
+            </div>
+            <div>
+              <label>V2 — Volume titran duplo 2 (mL)</label>
+              <input type="number" id="std-v2" placeholder="cth: 12.45" step="0.01">
+            </div>
+            <div>
+              <label>Massa baku primer (mg)</label>
+              <input type="number" id="std-mg" placeholder="cth: 105.0" step="0.01">
+            </div>
+            <div>
+              <label id="std-be-label">BE baku primer</label>
+              <input type="number" id="std-be" placeholder="cth: 63.03" step="0.01">
+            </div>
+            <div>
+              <label>FP — Faktor Pengali</label>
+              <input type="number" id="std-fp" value="1" step="0.1">
+            </div>
+          </div>
+          <button class="btn" onclick="hitungStandarisasi()">🔢 Hitung Standarisasi</button>
+          <div id="hasil-std" style="margin-top:18px;display:none">
+            <div class="result-grid">
+              <div class="result-item">
+                <div class="rc-label" id="lbl-n1">N₁</div>
+                <div class="rc-val" id="val-n1">—</div>
+                <div class="rc-unit">N</div>
+              </div>
+              <div class="result-item">
+                <div class="rc-label" id="lbl-n2">N₂</div>
+                <div class="rc-val" id="val-n2">—</div>
+                <div class="rc-unit">N</div>
+              </div>
+              <div class="result-item">
+                <div class="rc-label" id="lbl-nrata">N̄ Rata-rata</div>
+                <div class="rc-val" id="val-nrata">—</div>
+                <div class="rc-unit">N</div>
+              </div>
+              <div class="result-item">
+                <div class="rc-label">%RPD</div>
+                <div class="rc-val" id="val-rpd-std">—</div>
+                <div class="rc-unit">%</div>
+              </div>
+            </div>
+            <div id="status-std"></div>
+          </div>
+        </div>
+
+        <!-- TAB PENETAPAN KADAR -->
+        <div id="tab-kad" class="tab-content" style="display:none">
+          <div class="sec-header">
+            <span>📊</span><h3>Penetapan Kadar Analit</h3>
+          </div>
+          <div class="form-grid">
+            <div>
+              <label>V1 — Volume titran duplo 1 (mL)</label>
+              <input type="number" id="kad-v1" placeholder="cth: 10.20" step="0.01">
+            </div>
+            <div>
+              <label>V2 — Volume titran duplo 2 (mL)</label>
+              <input type="number" id="kad-v2" placeholder="cth: 10.15" step="0.01">
+            </div>
+            <div>
+              <label id="kad-nm-label">N/M titran dari standarisasi</label>
+              <input type="number" id="kad-nm" placeholder="cth: 0.0985" step="0.0001">
+            </div>
+            <div>
+              <label id="kad-be-label">BE / BM analit</label>
+              <input type="number" id="kad-be" placeholder="cth: 53.00" step="0.01">
+            </div>
+            <div>
+              <label>FP — Faktor Pengali</label>
+              <input type="number" id="kad-fp" value="1" step="0.1">
+            </div>
+            <div>
+              <label id="kad-sampel-label">Massa / Volume sampel</label>
+              <input type="number" id="kad-sampel" placeholder="cth: 0.500" step="0.001">
+            </div>
+          </div>
+          <button class="btn" onclick="hitungKadar()">🔢 Hitung Kadar</button>
+          <div id="hasil-kad" style="margin-top:18px;display:none">
+            <div class="result-grid">
+              <div class="result-item">
+                <div class="rc-label">Kadar 1</div>
+                <div class="rc-val" id="val-k1">—</div>
+                <div class="rc-unit" id="unit-k1">%</div>
+              </div>
+              <div class="result-item">
+                <div class="rc-label">Kadar 2</div>
+                <div class="rc-val" id="val-k2">—</div>
+                <div class="rc-unit" id="unit-k2">%</div>
+              </div>
+              <div class="result-item">
+                <div class="rc-label">Rata-rata</div>
+                <div class="rc-val" id="val-krata">—</div>
+                <div class="rc-unit" id="unit-krata">%</div>
+              </div>
+              <div class="result-item">
+                <div class="rc-label">%RPD</div>
+                <div class="rc-val" id="val-rpd-kad">—</div>
+                <div class="rc-unit">%</div>
+              </div>
+            </div>
+            <div id="status-kad"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="footer">
+    ⚗️ Web Titrimetri · Politeknik AKA Bogor · ANKIM 1D · 2025/2026
+  </div>
+</div>
+
+<script>
+// ---- DATA METODE ----
+const METODE = {
+  'Alkalimetri':      {bp:'Asam Oksalat',    be:63.03,  mode:'N', fStd:'N = mg / (V × BE × FP)',       fKad:'Kadar = (V × N × BE × FP × 10⁻³ / S) × 100%', beLabel:'BE baku primer (Asam Oksalat)',  nmLabel:'N titran (N)',   beKad:'BE analit',    sampelLabel:'Massa sampel (g)',       unitKad:'%'},
+  'Asidimetri':       {bp:'Boraks (Na₂B₄O₇·10H₂O)', be:190.69,mode:'N', fStd:'N = mg / (V × BE × FP)', fKad:'Kadar = (V × N × BE × FP × 10⁻³ / S) × 100%', beLabel:'BE baku primer (Boraks)',        nmLabel:'N titran (N)',   beKad:'BE analit',    sampelLabel:'Massa sampel (g)',       unitKad:'%'},
+  'Permanganometri':  {bp:'Asam Oksalat',    be:63.03,  mode:'N', fStd:'N = mg / (V × BE × FP)',       fKad:'Kadar = (V × N × BE × FP × 10⁻³ / S) × 100%', beLabel:'BE baku primer (Asam Oksalat)', nmLabel:'N KMnO₄ (N)',   beKad:'BE analit',    sampelLabel:'Massa sampel (g)',       unitKad:'%'},
+  'Iodometri':        {bp:'K₂Cr₂O₇',        be:49.03,  mode:'N', fStd:'N = mg / (V × BE × FP)',       fKad:'Kadar = (V × N × BE × FP × 10⁻³ / S) × 100%', beLabel:'BE baku primer (K₂Cr₂O₇)',     nmLabel:'N Na₂S₂O₃ (N)', beKad:'BE analit',    sampelLabel:'Massa sampel (g)',       unitKad:'%'},
+  'Argentometri':     {bp:'NaCl',            be:58.44,  mode:'N', fStd:'N = mg / (V × BE × FP)',       fKad:'Kadar = (V × N × BE × FP × 10⁻³ / S) × 100%', beLabel:'BE baku primer (NaCl)',         nmLabel:'N AgNO₃ (N)',   beKad:'BE analit',    sampelLabel:'Massa sampel (g)',       unitKad:'%'},
+  'Kompleksometri':   {bp:'CaCO₃',           be:100.09, mode:'M', fStd:'M = mg / (V × BM CaCO₃)',     fKad:'ppm = (V × M × BM × FP × 1000) / V sampel',   beLabel:'BM CaCO₃ (100.09)',             nmLabel:'M EDTA (M)',     beKad:'BM analit (CaCO₃)', sampelLabel:'Volume sampel (mL)', unitKad:'ppm'},
+};
+
+function showPage(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchTab(t){
+  document.querySelectorAll('.tab-content').forEach(el=>el.style.display='none');
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+t).style.display='';
+  document.getElementById('tab-'+t+'-btn').classList.add('active');
+}
+
+function updateMethod(){
+  const m = document.getElementById('metode').value;
+  const d = METODE[m];
+  document.getElementById('bp-info').innerHTML =
+    '<b>Baku Primer:</b> ' + d.bp + '<br><b>' + (d.mode==='N'?'BE':'BM') + ':</b> ' + d.be;
+  document.getElementById('f-std').textContent = d.fStd;
+  document.getElementById('f-kad').textContent = d.fKad;
+  document.getElementById('std-be-label').textContent = d.beLabel;
+  document.getElementById('std-be').value = d.be;
+  document.getElementById('kad-nm-label').textContent = d.nmLabel;
+  document.getElementById('kad-be-label').textContent = d.beKad;
+  document.getElementById('kad-sampel-label').textContent = d.sampelLabel;
+  // Update result labels
+  const isM = d.mode === 'M';
+  document.getElementById('lbl-n1').textContent = isM ? 'M₁' : 'N₁';
+  document.getElementById('lbl-n2').textContent = isM ? 'M₂' : 'N₂';
+  document.getElementById('lbl-nrata').textContent = isM ? 'M̄ Rata-rata' : 'N̄ Rata-rata';
+  // Reset hasil
+  document.getElementById('hasil-std').style.display='none';
+  document.getElementById('hasil-kad').style.display='none';
+}
+
+function rpd(a, b){
+  const rata = (a+b)/2;
+  if(rata===0) return 0;
+  return Math.abs(a-b)/rata*100;
+}
+
+function hitungStandarisasi(){
+  const m = document.getElementById('metode').value;
+  const d = METODE[m];
+  const v1 = parseFloat(document.getElementById('std-v1').value);
+  const v2 = parseFloat(document.getElementById('std-v2').value);
+  const mg = parseFloat(document.getElementById('std-mg').value);
+  const be = parseFloat(document.getElementById('std-be').value);
+  const fp = parseFloat(document.getElementById('std-fp').value);
+  const batas = parseFloat(document.getElementById('batas-rpd').value)||10;
+
+  if([v1,v2,mg,be,fp].some(isNaN)||v1<=0||v2<=0||mg<=0||be<=0){
+    alert('Harap isi semua field dengan nilai yang valid!'); return;
+  }
+
+  let n1, n2;
+  if(d.mode==='N'){
+    n1 = mg/(v1*be*fp);
+    n2 = mg/(v2*be*fp);
+  } else {
+    // Kompleksometri: M = mg/(V*BM) — FP tidak digunakan di standarisasi
+    n1 = mg/(v1*be);
+    n2 = mg/(v2*be);
+  }
+  const nrata = (n1+n2)/2;
+  const rpdVal = rpd(n1,n2);
+  const unit = d.mode==='M' ? 'M' : 'N';
+
+  document.getElementById('val-n1').textContent = n1.toFixed(4);
+  document.getElementById('val-n2').textContent = n2.toFixed(4);
+  document.getElementById('val-nrata').textContent = nrata.toFixed(4);
+  document.getElementById('val-rpd-std').textContent = rpdVal.toFixed(2);
+
+  const st = document.getElementById('status-std');
+  if(rpdVal<=batas){
+    st.innerHTML='<div class="status-ok">✅ %RPD = '+rpdVal.toFixed(2)+'% ≤ '+batas+'% — Presisi DITERIMA</div>';
+  } else {
+    st.innerHTML='<div class="status-err">❌ %RPD = '+rpdVal.toFixed(2)+'% > '+batas+'% — Presisi TIDAK DITERIMA</div>';
+  }
+
+  // Update unit label
+  document.querySelectorAll('.result-item .rc-unit').forEach((el,i)=>{if(i<3)el.textContent=unit;});
+  document.getElementById('hasil-std').style.display='';
+}
+
+function hitungKadar(){
+  const m = document.getElementById('metode').value;
+  const d = METODE[m];
+  const v1 = parseFloat(document.getElementById('kad-v1').value);
+  const v2 = parseFloat(document.getElementById('kad-v2').value);
+  const nm = parseFloat(document.getElementById('kad-nm').value);
+  const be = parseFloat(document.getElementById('kad-be').value);
+  const fp = parseFloat(document.getElementById('kad-fp').value);
+  const sampel = parseFloat(document.getElementById('kad-sampel').value);
+  const batas = parseFloat(document.getElementById('batas-rpd').value)||10;
+
+  if([v1,v2,nm,be,fp,sampel].some(isNaN)||v1<=0||v2<=0||nm<=0||be<=0||sampel<=0){
+    alert('Harap isi semua field dengan nilai yang valid!'); return;
+  }
+
+  let k1, k2, unitKad;
+  if(d.mode==='N'){
+    // Kadar (%) = V*N*BE*FP*1e-3/S*100
+    k1 = (v1*nm*be*fp*1e-3/sampel)*100;
+    k2 = (v2*nm*be*fp*1e-3/sampel)*100;
+    unitKad = '%';
+  } else {
+    // Kesadahan (ppm) = V*M*BM*FP*1000/V_sampel
+    k1 = (v1*nm*be*fp*1000)/sampel;
+    k2 = (v2*nm*be*fp*1000)/sampel;
+    unitKad = 'ppm';
+  }
+  const krata = (k1+k2)/2;
+  const rpdVal = rpd(k1,k2);
+
+  document.getElementById('val-k1').textContent = k1.toFixed(4);
+  document.getElementById('val-k2').textContent = k2.toFixed(4);
+  document.getElementById('val-krata').textContent = krata.toFixed(4);
+  document.getElementById('val-rpd-kad').textContent = rpdVal.toFixed(2);
+  ['unit-k1','unit-k2','unit-krata'].forEach(id=>document.getElementById(id).textContent=unitKad);
+
+  const st = document.getElementById('status-kad');
+  if(rpdVal<=batas){
+    st.innerHTML='<div class="status-ok">✅ %RPD = '+rpdVal.toFixed(2)+'% ≤ '+batas+'% — Presisi DITERIMA</div>';
+  } else {
+    st.innerHTML='<div class="status-err">❌ %RPD = '+rpdVal.toFixed(2)+'% > '+batas+'% — Presisi TIDAK DITERIMA</div>';
+  }
+  document.getElementById('hasil-kad').style.display='';
+}
+
+// Init
+updateMethod();
+</script>
+</body>
+</html>
+"""
+
+components.html(HTML, height=1800, scrolling=True)
